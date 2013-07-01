@@ -2,6 +2,6 @@ all:
 	echo "success!"
 
 server:
-	python server.py
+	python flleshare_server.py
 
 .DEFAULT_GOAL := server
