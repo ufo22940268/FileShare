@@ -10,15 +10,14 @@ import json
 import re
 import urllib
 import traceback
+from setting import *
+import file_manager
 
-FILES_DIRECTORY = "./files/";
-SERVER_IP = "http://192.168.2.124";
-URL_PREFIX = SERVER_IP + "/files/";
 logger = logging.getLogger("test");
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-	loader = Loader("./");
-	self.write(loader.load("index.html").generate());
+        loader = Loader("./");
+        self.write(loader.load("index.html").generate());
 
 class UploadHandler(tornado.web.RequestHandler):
 
@@ -33,8 +32,15 @@ class UploadHandler(tornado.web.RequestHandler):
         util.log("finish");
         self.write(URL_PREFIX + fileName);
 
+class FileListHandler(tornado.web.RequestHandler):
+    def get(self):
+        files = file_manager.getAllFiles();
+        loader = Loader("./");
+        self.write(loader.load("file_list.html").generate(files=files));
+
 application = tornado.web.Application([
     (r"/", MainHandler),
+    (r"/file_list", FileListHandler),
     (r"/upload", UploadHandler),
     (r"/css/(.*)", tornado.web.StaticFileHandler, {"path": "./css/"}),
     (r"/js/(.*)", tornado.web.StaticFileHandler, {"path": "./js/"}),

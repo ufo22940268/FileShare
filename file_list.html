@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style type="text/css">
+            .important {
+                background-color: #F5F5F5;
+                border: none;
+                width: 450px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <table class="table table-hover">
+                <tr>
+                    <th>文件名</th>
+                    <th>上传日期</th>
+                    <th>链接</th>
+                </tr>
+                {% import time  %}
+                {% from datetime import date %}
+                {% from datetime import timedelta %}
+                {% for f in files %}
+                {% set time = date.fromtimestamp(f["create_time"]) %}
+                {% set isToday = False %}
+                {% if time == date.today() %}
+                {% set isToday = True %}
+                {% end %}
+                <tr {% if isToday %}class="info"{% end %}>
+                    <td>{{ f["name"] }}</td>
+                    <td>{{ time }}</td>
+                    <td>
+                        <input class="important" value="{{ f["url"] }}" onmouseover="this.focus()" onfocus="this.select()" autocomplete="off" readonly="">
+                    </td>
+                </tr>
+                {% end %}
+            </table>
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+        </div>
+    </body>
+</html>
