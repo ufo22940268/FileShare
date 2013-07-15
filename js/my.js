@@ -7,7 +7,7 @@ var dropHandler = function(e){
     file = e.dataTransfer.files && e.dataTransfer.files[0];
     console.log(file);
     console.log(text);
-    //upLoad(file, text);
+    upLoad(file, text);
 }
 
 //event

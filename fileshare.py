@@ -39,7 +39,7 @@ class FileListHandler(tornado.web.RequestHandler):
         self.write(loader.load("file_list.html").generate(files=files));
 
 application = tornado.web.Application([
-    (r"/", MainHandler),
+    (r"/file_share", MainHandler),
     (r"/file_list", FileListHandler),
     (r"/upload", UploadHandler),
     (r"/css/(.*)", tornado.web.StaticFileHandler, {"path": "./css/"}),
@@ -49,5 +49,5 @@ application = tornado.web.Application([
     ]);
 
 if __name__ == "__main__":
-    application.listen(8885)
+    application.listen(8889)
     tornado.ioloop.IOLoop.instance().start()
