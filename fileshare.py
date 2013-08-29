@@ -46,7 +46,7 @@ application = tornado.web.Application([
     (r"/js/(.*)", tornado.web.StaticFileHandler, {"path": "./js/"}),
     (r"/img/(.*)", tornado.web.StaticFileHandler, {"path": "./img/"}),
     (r"/server/(.*)", tornado.web.StaticFileHandler, {"path": "./server/"}),
-    ]);
+    ], debug=True);
 
 if __name__ == "__main__":
     application.listen(8889)
